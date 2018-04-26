@@ -26,7 +26,9 @@ export function warningOnce(condition, format, arg) {
  * @return   {boolean}       返回ture/false
  * @demo     isObj()
  */
-
+export function isObj(param) {
+    return Object.prototype.toString.call(param).slice(8, -1) === 'Object';
+}
 
 /*
  * @method   if条件下为false   除去NaN、0、-0、false   剩余undefined、null、""
