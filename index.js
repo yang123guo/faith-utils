@@ -99,3 +99,16 @@ export function typeFormat(origin, type) {
 }
 
 
+Array.prototype.except = function (target) {
+    if (Array.isArray(target)) {
+        let dist = this.filter(function (val) {
+            return target.every(function (key) {
+                return val !== key
+            })
+        })
+        return dist;
+    }
+    warningOnce(Array.isArray(target), '传入的参考项须为数组')
+    return false;
+}
+
