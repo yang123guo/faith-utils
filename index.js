@@ -31,12 +31,13 @@ export function isObj(param) {
 }
 
 /*
- * @method   检测是否是常规的 Object  {} 这种形式
- * @author   add by yangguoqiang @18/03/05
+ * @method   检测数据类型
+ * @author   add by yangguoqiang @18/04/29
  * @params 
- *     condition     {any}         
+ *     type     {Sting}  
+ *     param    {any}   
  * @return   {boolean}       返回ture/false
- * @demo     isObj()
+ * @demo     checkType('String', [])
  */
 export function checkType(type, param) {
     const typeList = ['String', 'Number', 'Array', 'Object', 'Boolean', 'Undefined', 'Function'];
