@@ -18,17 +18,6 @@ export function warningOnce(condition, format, arg) {
     }
 }
 
-/*
- * @method   检测是否是常规的 Object  {} 这种形式
- * @author   add by yangguoqiang @18/03/05
- * @params 
- *     condition     {any}         
- * @return   {boolean}       返回ture/false
- * @demo     isObj()
- */
-export function isObj(param) {
-    return Object.prototype.toString.call(param).slice(8, -1) === 'Object';
-}
 
 /*
  * @method   检测数据类型
@@ -42,7 +31,7 @@ export function isObj(param) {
 export function checkType(type, param) {
     const typeList = ['String', 'Number', 'Array', 'Object', 'Boolean', 'Undefined', 'Function'];
     let isType = typeList.includes(type);
-    if(isType) {
+    if (isType) {
         return Object.prototype.toString.call(param).slice(8, -1) === type;
     }
     warningOnce(isType, `第一个参数须为${String(typeList)}中其一`)
@@ -99,22 +88,26 @@ export function undefinedOrfalse(one) {
 }
 
 /*
- * @method   根据不同类型初始化 null
+ * @method   根据不同类型初始化 null 输出后台可用的数据格式。
  * @author   add by yangguoqiang @18/03/19
  * @params 
- *     origin    {any}
- *     type      {string}
- * @return   {boolean}       返回ture/false
+ *     origin    {any}      数据来源
+ *     type      {string}   数据类型
+ * @return   {any}          返回
  * @demo     typeFormat('', 'string')
  */
 export function typeFormat(origin, type) {
-    if (CONFIG.string.includes(type) && (origin === null || origin === undefined)) {
-        return ''
+    let isVoid = isWrong.call(null, origin);
+    switch (true) {
+        // 'input', 'textarea', 'datepicker', 'select', 'checkbox', 'radio', 'refer', 'label' 和 number的空value处理
+        case ([...CONFIG.string, ...CONFIG.number].includes(type) && isVoid):
+            return '';
+        // switch 的空value处理为boolean值
+        case (CONFIG.boolean.includes(type) && isVoid):
+            return !!origin;
+        default:
+            return origin;
     }
-    if (CONFIG.boolean.includes(type) && (origin === null || origin === undefined)) {
-        return !!origin
-    }
-    return origin;
 }
 
 
@@ -131,7 +124,7 @@ Array.prototype.except = function (target) {
     return false;
 }
 
-
+// TODO 
 function _sumItemsCode(tableId) {
     // 做个缓存，不必每次计算  initialvalue  itemtype  attrcode
     if (!DEFAULT.SUM_CODE[tableId]) {
@@ -173,4 +166,7 @@ function _sumItemsCode(tableId) {
     }
     return DEFAULT.SUM_CODE[tableId]
 }
+
+
+
 
