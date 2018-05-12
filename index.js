@@ -31,6 +31,25 @@ export function isObj(param) {
 }
 
 /*
+ * @method   检测数据类型
+ * @author   add by yangguoqiang @18/04/29
+ * @params 
+ *     type     {Sting}  
+ *     param    {any}   
+ * @return   {boolean}       返回ture/false
+ * @demo     checkType('String', [])
+ */
+export function checkType(type, param) {
+    const typeList = ['String', 'Number', 'Array', 'Object', 'Boolean', 'Undefined', 'Function'];
+    let isType = typeList.includes(type);
+    if(isType) {
+        return Object.prototype.toString.call(param).slice(8, -1) === type;
+    }
+    warningOnce(isType, `第一个参数须为${String(typeList)}中其一`)
+    return false
+}
+
+/*
  * @method   if条件下为false   除去NaN、0、-0、false   剩余undefined、null、""
  * @author   add by yangguoqiang @18/03/19
  * @params 
