@@ -50,18 +50,6 @@ export function isWrong(param) {
     return (typeof param === 'undefined') || param === null || param === ''
 }
 
-/*
- * @method   检测是否是需要显示display的itemtype类型
- * @author   add by yangguoqiang @18/03/19
- * @params 
- *     condition     {any}         
- * @return   {boolean}       返回ture/false
- * @demo     isWrong('')    因为后台返回数据不规范
- */
-export function isDisplay(param) {
-    return (CONFIG.displayTypes.includes(param))
-}
-
 
 /*
  * @method   测试不存在或者值为true 同等效力
