@@ -50,3 +50,30 @@ export function isRealNum(val) {
 		return true;
 	}
 }
+
+// 两者间的随机数
+export function random(lower, upper) {
+    var range = upper - lower + 1;
+    return (Math.floor((Math.random() * range) + lower));
+}
+
+
+
+function _isAlpha(ch) {
+    return (((ch >= 'a') && (ch <= 'z')) || ((ch >= 'A') && (ch <= 'Z')));
+}
+function _isNumeric(ch) {
+    return ((ch >= '0') && (ch <= '9'));
+}
+
+// 获得n为的随机密码
+export function getRandomPassword(n) {
+    var s = "", ch;
+    while (s.length < n) {
+        ch = String.fromCharCode(random(33, 122));
+        if (_isAlpha(ch) || _isNumeric(ch)) {
+            s += ch;
+        }
+    }
+    return (s.toLowerCase());
+}
