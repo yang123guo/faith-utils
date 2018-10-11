@@ -72,6 +72,7 @@ const event = {
     }
 };
 
+// 这个函数是克隆订阅发布功能
 const installEvent = function(obj) {
     for(var i in event) {
         obj[i] = event[i];
