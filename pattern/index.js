@@ -70,4 +70,14 @@ const event = {
         }
 
     }
-}
+};
+
+const installEvent = function(obj) {
+    for(var i in event) {
+        obj[i] = event[i];
+    }
+};
+
+const salesOffices = {};
+
+installEvent(salesOffices);
