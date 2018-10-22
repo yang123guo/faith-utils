@@ -27,6 +27,11 @@ export function flattenDepth(arr, depth = 1) {
         : arr.reduce((a, v) => a.concat(v), []);
 }
 
+// 完全拍平数组
+// deepFlatten([1,[2],[[3],4],5]) -> [1,2,3,4,5]
+export function deepFlatten(arr) {
+    return arr.reduce((a, v) => a.concat(Array.isArray(v) ? deepFlatten(v) : v), []);
+}
 
 // 返回两个数组之间的对称差。
 // symmetricDifference([1,2,3], [1,2,4]) -> [3,4]
@@ -34,6 +39,13 @@ export function symmetricDifference(a, b) {
     const sA = new Set(a), sB = new Set(b);
     return [...a.filter(x => !sB.has(x)), ...b.filter(x => !sA.has(x))];
 } 
+
+// 从b中找出a多余的元素
+// difference([1,2,3], [1,2]) -> [3]
+export function difference(a, b) { 
+    const s = new Set(b); 
+    return a.filter(x => !s.has(x)); 
+};
 
 // 返回两个数组中都显示的元素的数组。
 // similarity([1,2,3], [1,2,4]) -> [1,2]
@@ -46,6 +58,17 @@ export function similarity(arr, values) {
 export function similarity(a, b) {
     return Array.from(new Set([...a, ...b]));
 } 
+
+// 从数组中随机获取元素
+//ecDo.randomOne([1,2,3,6,8,5,4,2,6])
+//1
+export function  randomOne (arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+
+// const shuffle = arr => arr.sort(() => Math.random() - 0.5);
+
+// shuffle([1,2,3]) -> [2,3,1]
 
 
 

@@ -11,7 +11,7 @@ function repeat1(src, n) {
     return (n > 0) ? src.concat(repeat1(src, --n)) : "";
 }
 
-// 字符串长度截取
+// 字符串长度截取 不靠谱
 function cutstr(str, len) {
     var temp,
         icount = 0,
@@ -21,7 +21,7 @@ function cutstr(str, len) {
         if (icount < len - 1) {
             temp = str.substr(i, 1);
                 if (patrn.exec(temp) == null) {
-                   icount = icount + 1
+                    icount = icount + 1
             } else {
                 icount = icount + 2
             }
@@ -32,6 +32,12 @@ function cutstr(str, len) {
     }
     return strre + "..."
 }
+
+// 字符串长度截取2
+function truncateString(str, num) {
+    return str.length > num ? str.slice(0, num > 3 ? num - 3 : num) + '...' : str;
+}
+
 
 /**
  *javascript按字节进行截取
@@ -70,12 +76,59 @@ function ToCDB(str){
     for(var i=0; i < str.length; i++){
         code = str.charCodeAt(i);
         if(code >= 65281 && code <= 65374){
-              result += String.fromCharCode(str.charCodeAt(i) - 65248);
+            result += String.fromCharCode(str.charCodeAt(i) - 65248);
         }else if (code == 12288){
-              result += String.fromCharCode(str.charCodeAt(i) - 12288 + 32);
+            result += String.fromCharCode(str.charCodeAt(i) - 12288 + 32);
         }else{
-              result += str.charAt(i);
+            result += str.charAt(i);
         }
     }
     return result;
+}
+
+// 转为驼峰字母
+// toCamelCase("some_database_field_name") -> 'someDatabaseFieldName'
+// toCamelCase("Some label that needs to be camelized") -> 'someLabelThatNeedsToBeCamelized'
+// toCamelCase("some-javascript-property") -> 'someJavascriptProperty'
+// toCamelCase("some-mixed_string with spaces_underscores-and-hyphens") -> 'someMixedStringWithSpacesUnderscoresAndHyphens'
+function toCamelCase(str) {
+    return str.replace(/^([A-Z])|[\s-_]+(\w)/g, (match, p1, p2, offset) =>  p2 ? p2.toUpperCase() : p1.toLowerCase());
+}
+
+
+//检测字符串
+//ecDo.checkType('165226226326','phone')
+//result：false
+//大家可以根据需要扩展
+checkType: function (str, type) {
+    switch (type) {
+        case 'email':
+            return /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(str);
+        case 'phone':
+            return /^1[3|4|5|7|8][0-9]{9}$/.test(str);
+        case 'tel':
+            return /^(0\d{2,3}-\d{7,8})(-\d{1,4})?$/.test(str);
+        case 'number':
+            return /^[0-9]$/.test(str);
+        case 'english':
+            return /^[a-zA-Z]+$/.test(str);
+        case 'text':
+            return /^\w+$/.test(str);
+        case 'chinese':
+            return /^[\u4E00-\u9FA5]+$/.test(str);
+        case 'lower':
+            return /^[a-z]+$/.test(str);
+        case 'upper':
+            return /^[A-Z]+$/.test(str);
+        default:
+            return true;
+    }
+}
+
+// 在字符串'...'中找出'blog'的出现次数
+// var strTest='sad44654blog5a1sd67as9dablog4s5d16zxc4sdweasjkblogwqepaskdkblogahseiuadbhjcibloguyeajzxkcabloguyiwezxc967'
+//ecDo.countStr(strTest,'blog')
+//result：6
+function countStr(str, strSplit) {
+    return str.split(strSplit).length - 1
 }
