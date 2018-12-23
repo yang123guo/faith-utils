@@ -112,49 +112,6 @@ Array.prototype.except = function (target) {
     return false;
 }
 
-// TODO 
-function _sumItemsCode(tableId) {
-    // 做个缓存，不必每次计算  initialvalue  itemtype  attrcode
-    if (!DEFAULT.SUM_CODE[tableId]) {
-        let [
-            editTableId,
-            broweTableId,
-            tabRelation,
-            obj
-        ] = [
-                this.state.meta.gridrelation[tableId].destEditAreaCode,
-                this.state.meta.gridrelation[tableId].destBrowseAreaCode,
-                this.state.meta.gridrelation[tableId].tabRelation,
-                {}
-            ];
-
-        let tabItems = tabRelation.reduce((prev, next) => {
-            if (!this.state.meta[next] || !Array.isArray(this.state.meta[next].items)) {
-                return prev;
-            }
-            prev = [...prev, ...this.state.meta[next].items]
-            return prev
-        }, [])
-
-        let rows = [
-            ...this.state.meta[editTableId].items,
-            ...this.state.meta[broweTableId].items,
-            ...tabItems
-        ]
-
-        rows.map(item => {
-            let code = item.attrcode;
-            obj[code] = {
-                attrcode: item.attrcode,
-                initialvalue: item.initialvalue,
-                itemtype: item.itemtype
-            };
-        })
-        return DEFAULT.SUM_CODE[tableId] = Object.values(obj);
-    }
-    return DEFAULT.SUM_CODE[tableId]
-}
-
 
 
 
