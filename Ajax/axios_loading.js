@@ -43,7 +43,8 @@ $.interceptors.response.use((response) => {
 })
 // 实际上，现在的功能还差一点。如果某个请求不需要 loading 呢，那么发请求的时候加个 showLoading： false的参数就好了。在请求拦截和响应拦截时判断下该请求是否需要loading，需要 loading 再去调用showFullScreenLoading()方法即可。
 
-const defaultConfig = { showLoading: true }
+const defaultConfig = { showLoading: true };
+// 暴露出
 export default {
   get: (url, config) => $.get(url, { ...defaultConfig, ...config }),
   put: (url, data, config) => $.put(url, data, { ...defaultConfig, ...config }),
