@@ -1,3 +1,4 @@
+// 获取随机字符串
 export function getRandom() {
     return String(new Date().getTime()).slice(-5) + Math.random().toString(12);
 }
